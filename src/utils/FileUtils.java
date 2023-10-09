@@ -174,7 +174,7 @@ public class FileUtils {
         }
     }
 
-    public static void readFilePersonalFilm(List<PersonalFilm> listPersonalFilm, String fileName, List<Film> filmList) {
+    public static void readFilePersonalFilm(List<PersonalFilm> listPersonalFilm, String fileName) {
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         try {

@@ -2,31 +2,33 @@ package entity;
 
 public class PersonalFilm {
     protected String loginUser;
-    protected String titleFim;
+    protected String titleFilm;
 
-    public PersonalFilm(String loginUser, String titleFim) {
+    public PersonalFilm(String loginUser, String titleFilm) {
         this.loginUser = loginUser;
-        this.titleFim = titleFim;
-    }
-
-    public void setLoginUser(String loginUser) {
-        this.loginUser = loginUser;
-    }
-
-    public void setTitleFim(String titleFim) {
-        this.titleFim = titleFim;
+        this.titleFilm = titleFilm;
     }
 
     public String getLoginUser() {
         return loginUser;
     }
 
-    public String getTitleFim() {
-        return titleFim;
+    public void setLoginUser(String loginUser) {
+        this.loginUser = loginUser;
+    }
+
+    public String getTitleFilm() {
+        return titleFilm;
+    }
+
+    public void setTitleFilm(String titleFilm) {
+        this.titleFilm = titleFilm;
     }
 
     @Override
     public String toString() {
-        return loginUser + " добавил фильм " + titleFim;
+        return loginUser + " добавил фильм " + titleFilm;
     }
+
+
 }

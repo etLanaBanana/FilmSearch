@@ -9,14 +9,6 @@ public class Film implements Serializable {
     protected String country;
     protected String date;
     protected int rating;
-    //    public Film(int idFilm, String title, String genre, String country, String date, int rating) {
-//        this.IdFilm = idFilm;
-//        this.title = title;
-//        this.genre = genre;
-//        this.country = country;
-//        this.date = date;
-//        this.rating = rating;
-//    }
     static public FilmBuilder builder() {
         return new FilmBuilder(); }
     public int getIdFilm() {
@@ -67,19 +59,28 @@ public class Film implements Serializable {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
     public static int getIdFilmForTitle(List<Film> listFilm, String title) {
         Film[] films = listFilm.getAll();
-        for (int i = 0; i < films.length & films[1] != null; i++) {
-            if (films[i].getTitle().equals(title)) {
-                return films[1].getIdFilm();
+        for(int i =0; i < films.length & films[i] !=null; i++){
+            if(films[i].getTitle().equals(title)){
+                return films[i].getIdFilm();
             }
         }
         return 0;
     }
+    public static  Film getFilmForIdFilm(Film[] films, int idFilm) {
+        Film film = Film.builder().build();
+        for (int i = 0; i < films.length && films[i] != null; i++) {
+            if (films[i].getIdFilm() == idFilm) {
+                film = films[i];
+            }
+        }
+        return film;
+    }
+
     @Override
     public String toString() {
-        return String.format("Фильм с ID %d, Название: %s, Жанр: %s, Страна: %s, Год выпуска: %s, Рейтинг: %d",
+        return String.format("Фильм с айди %d, Название: %s Жанр: %s Страна: %s Год выпуска: %s Рейтинг: %d",
                 IdFilm, title, genre, country, date, rating);
     }
     public static class FilmBuilder {
@@ -120,4 +121,3 @@ public class Film implements Serializable {
 
     }
 }
-

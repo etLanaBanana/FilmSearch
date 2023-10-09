@@ -1,15 +1,21 @@
+import exeption.InvalidCredentialsException;
 import service.Authorization;
 import entity.*;
-import exeption.*;
 import utils.*;
 
 
+import java.sql.SQLOutput;
 import java.util.Iterator;
 import java.util.Scanner;
+
+import static entity.Film.getFilmForIdFilm;
+import static entity.Film.getIdFilmForTitle;
+import static entity.User.hasUserListThisUser;
 
 public class Application {
     static List<User> listUser = new List<>(new User[10]);
     static List<Film> listFilm = new List<>(new Film[50]);
+    static List<PersonalFilm> personalFilmList =new List<>(new PersonalFilm[10]);
 
     static List<FilmRating> filmRatingList = new List<>(new FilmRating[10]);
     static Authorization authorization = new Authorization(listUser);
@@ -18,25 +24,22 @@ public class Application {
         Menu menu = null;
 
 
-        FileUtils.readFileUser(listUser,"src\\users1");
-        FileUtils.readFileFilmRating(filmRatingList,"src\\ListFilmRating" );
-
-        if (filmRatingList.getSize() != 0) {
-            FileUtils.readFileFilm(listFilm, "src\\film1", filmRatingList);
-
-        }
-        listFilm.print();
-        for (Film films:listFilm.getAll()) {
-            System.out.println(films);
-
-        }
+        FileUtils.readFileUser(listUser, "src\\users");
+        FileUtils.readFileFilmRating(filmRatingList, "src\\ListFilmRating");
+        FileUtils.readFileFilm(listFilm, "src\\films", filmRatingList);
+        FileUtils.readFilePersonalFilm(personalFilmList, "src\\personal");
 
         Scanner keyboard = new Scanner(System.in);
 
         System.out.println("Выберите один из пунктов: \n" +
                 "1. Войти \n" +
                 "2. Регистрация");
-        int a = keyboard.nextInt();
+
+            int a = keyboard.nextInt(); //если ввести не числа
+            while (!(a == 1 || a == 2)) {
+                System.out.println("Введите только 1 или 2!");
+                a = keyboard.nextInt();
+            }
         User user = null;
         if (a == 1) {
             Pair<User, Menu> userMenuPair = tryToAuthoriseUser();
@@ -45,10 +48,7 @@ public class Application {
             menu.printMenu();
         } else if (a == 2) {
             Pair<User, Menu> userMenuPair = tryToRegistrationUser();
-        } else {
-            System.out.println("1 или 2");
         }
-//        menu.printMenu();
 
 
         if (user != null) {
@@ -85,16 +85,105 @@ public class Application {
                                 }
                         }
                         case 4 -> {
-
+                            keyboard.nextLine();
+                            System.out.println("Введите жанр: ");
+                            String genre = keyboard.next();
+                            for (Film film : listFilm.getAll())
+                                if (film.getGenre().equals(genre)) {
+                                    System.out.println(film);
+                                }
                         }
                         case 5 -> {
+                            keyboard.nextLine();
+                            System.out.println("Введите название фильма: ");
+                            String title = keyboard.nextLine();
+                            System.out.println("Введите оценку от 1 до 100: ");
+                            int rating = Integer.parseInt(keyboard.nextLine());
+                            while (!(rating > 0 & rating <= 100))
+                            {
+                                System.out.println("Введите оценку от 1 до 100: ");
+                                rating = Integer.parseInt(keyboard.nextLine());
+                            }
+                            FilmRating newFilmRating = new FilmRating(getIdFilmForTitle(listFilm, title), title, user.getLogin(), rating);
+                            filmRatingList.insert(newFilmRating);
 
                         }
                         case 6 -> {
+                            PersonalFilm[] personalFilms = personalFilmList.getAll();
+                            Film[] films = listFilm.getAll();
 
+                            for (int i = 0; i < personalFilms.length && personalFilms[i] != null; i++) {
+                                if(personalFilms[i].getLoginUser().equals(user.getLogin())) {
+                                    for (int j = 0; j < films.length && films[j] != null; j++){
+                                        if(personalFilms[i].getTitleFilm().equals(films[j].getTitle())) {
+                                            System.out.println(films[j].toString());
+                                        }
+                                    }
+                                }
+                            }
                         }
                         case 7 -> {
+                            PersonalFilm[] personalFilms = personalFilmList.getAll();
+                            Film[] films = listFilm.getAll();
+                            List<String> listTitle = new List<>(new String[100]);
+                            String[] massTitle = listTitle.getAll();
+                            System.out.println("Введите id фильма, который хотите добавить: ");
+                            int idFilm = keyboard.nextInt();
 
+                            Film film = getFilmForIdFilm(films, idFilm);
+                            for (int i = 0; i < personalFilms.length && personalFilms[i] != null; i++) {
+                                if (user.getLogin().equals(personalFilms[i].getLoginUser())) {
+                                    listTitle.insert(personalFilms[i].getTitleFilm());
+                                }
+                            }
+                            int count = 0;
+                            int it = 0;
+                            for (int j = 0; j < massTitle.length; j++) {
+                                if (massTitle[j].equals(film.getTitle())) {
+                                    System.out.println("Такой фильм уже в вашем списке!");
+                                } else {
+                                    count++;
+                                }
+                                it = j;
+                            }
+                            if (count == it + 1) {
+                                PersonalFilm personalFilm = new PersonalFilm(user.getLogin(), film.getTitle());
+                                personalFilmList.insert(personalFilm);
+                                personalFilmList.print();
+                            }
+//                            int switcher = 0;
+//                            int count = 0;
+//                            while (switcher == 0) {
+//                                if (count > 1) {
+//                                    System.out.println("Вы ввели неверный ID");
+//                                }
+//                            }
+//                                for (int i = 0; i < films.length && films[i] != null; i++) {
+//                                    if (films[i].getIdFilm() != idFilm) {
+//                                        System.out.println("Вы ввели неверный ID");
+//                                        idFilm = Integer.parseInt(keyboard.nextLine());
+//                                    }
+//                                }
+//                            }
+//                            for (int i = 0; i < films.length && films[i] != null; i++) {
+//                                if (films[i].getIdFilm() == idFilm) {
+//                                    for (int j = 0; j < personalFilms.length && films[j] != null; i++) {
+//                                        if (personalFilms[j].getLoginUser().equals(user.getLogin())) {
+//                                            for (int k = 0; k < personalFilms.length && personalFilms[k] != null; k++) {
+//
+//                                            }
+//                                            PersonalFilm newPersonalFilm = new PersonalFilm(user.getLogin(), films[i].getTitle());
+//                                            personalFilmList.insert(newPersonalFilm);
+//                                            break;
+//                                        }
+//                                        if (personalFilms[j].getLoginUser().equals(user.getLogin()) && !personalFilms[j].getTitleFilm().equals(films[i].getTitle())) {
+//                                            PersonalFilm newPersonalFilm = new PersonalFilm(user.getLogin(), films[i].getTitle());
+//                                            personalFilmList.insert(newPersonalFilm);
+//                                            //switcher++;
+//                                        }
+//                                    }
+//                                }
+//                            }
                         }
                         case 8 -> {
 
@@ -161,6 +250,9 @@ public class Application {
     }
 
     private static Pair<User, Menu> tryToRegistrationUser() {
+        User[] users = listUser.getAll();
+
+
         Menu menu;
         String login;
         String password;
@@ -170,6 +262,10 @@ public class Application {
         String nickName = keyboard.nextLine();
         System.out.println("Введите логин: ");
         login = keyboard.nextLine();
+        while (hasUserListThisUser(listUser, login)) {
+            System.out.println("Введите логин: ");
+            login = keyboard.nextLine();
+        }
         System.out.println("Введите пароль: ");
         password = keyboard.nextLine();
         System.out.println("Введите пароль админа: ");
@@ -181,16 +277,8 @@ public class Application {
             userRole = UserRole.COMMON;
         }
         User newUser = new User(nickName, login, password, userRole);
-//        for (User user : listUser.getAll()) {
-//            if (user.getLogin().equals(login)) {
-//                System.out.println("Такой пользователь уже есть!");
-//
-//            } else {
         listUser.insert(newUser);
-//            }
-
-//        }
+        listUser.print();
         return new Pair<>(newUser, menu);
     }
 }
-
