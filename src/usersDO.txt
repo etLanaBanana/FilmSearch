@@ -1,0 +1,4 @@
+Человек с ником 1234, логином 1234, ролью COMMON
+Человек с ником 3dloska, логином roewds, ролью COMMON
+Человек с ником hareck3500, логином loghareck3500, ролью COMMON
+Человек с ником ipHacker, логином 21kard, ролью COMMON
