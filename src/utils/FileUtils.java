@@ -11,7 +11,8 @@ public class FileUtils {
         return line.split(", ");
     }
 
-    public static void readFileUser(List<User> listUser, String fileName) {
+    public static List<User> readFileUser(String fileName) {
+        List<User> listUser = new List<>(new User[20]);
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         try {
@@ -52,6 +53,7 @@ public class FileUtils {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return listUser;
     }
 
     public static void writeDataToFileUser(List<User> listUser, String fileName) {
@@ -73,7 +75,8 @@ public class FileUtils {
         }
     }
 
-    public static void readFileFilm(List<Film> listFilm, String fileName, List<FilmRating> filmRatingList) {
+    public static List<Film> readFileFilm(String fileName, List<FilmRating> filmRatingList) {
+        List<Film> listFilm = new List<>(new Film[20]);
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         try {
@@ -114,7 +117,7 @@ public class FileUtils {
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
-
+        return listFilm;
     }
 
     public static void writeDataToFileFilm(List<Film> listFilm, String fileName) {
@@ -136,7 +139,8 @@ public class FileUtils {
         }
     }
 
-    public static void readFileFilmRating(List<FilmRating> listFilmRating, String fileName) {
+    public static List<FilmRating> readFileFilmRating(String fileName) {
+        List<FilmRating> listFilmRating = new List<>(new FilmRating[20]);
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         try {
@@ -160,6 +164,7 @@ public class FileUtils {
             listFilmRating.print();
             bufferedReader.close();
             fileReader.close();
+            return listFilmRating;
 
         } catch (IOException e) {
             try {
@@ -172,63 +177,7 @@ public class FileUtils {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void readFilePersonalFilm(List<PersonalFilm> listPersonalFilm, String fileName) {
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-        try {
-            fileReader = new FileReader(fileName);
-            bufferedReader = new BufferedReader(fileReader);
-
-            bufferedReader.readLine();
-
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] partsOfLine = getPartsOfLine(line);
-
-
-                PersonalFilm personalFilm = new PersonalFilm(partsOfLine[0], partsOfLine[1]);
-
-
-                listPersonalFilm.insert(personalFilm);
-            }
-
-            listPersonalFilm.print();
-            bufferedReader.close();
-            fileReader.close();
-
-        } catch (IOException e) {
-            try {
-                bufferedReader.close();
-                fileReader.close();
-            } catch (Exception er) {
-                System.out.println("Произошла ошибка");
-            }
-            throw new RuntimeException("Такой файл не найден");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void writeDataToFilePersonalFilm(List<PersonalFilm> listPersonalFilm, String fileName) {
-        FileWriter fileWriter = null;
-        BufferedWriter bufferedWriter = null;
-        try {
-            fileWriter = new FileWriter(fileName);
-            bufferedWriter = new BufferedWriter(fileWriter);
-
-            PersonalFilm[] filmRatings = listPersonalFilm.getAll();
-
-            for (int i = 0; i < listPersonalFilm.getSize(); i++) {
-                bufferedWriter.write(filmRatings[i] + "\n");
-            }
-
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return listFilmRating;
     }
 
     public static void writeDataToFileFilmRating(List<FilmRating> listFilmRating, String fileName) {
@@ -267,6 +216,63 @@ public class FileUtils {
 
         return (int) sumRating/count;
     }
+    public static List<PersonalFilm> readFilePersonalFilm(String fileName) {
+        List<PersonalFilm> listPersonalFilm = new List<>(new PersonalFilm[20]);
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(fileName);
+            bufferedReader = new BufferedReader(fileReader);
+
+            bufferedReader.readLine();
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] partsOfLine = getPartsOfLine(line);
+
+
+                PersonalFilm filmRating = new PersonalFilm(partsOfLine[0], partsOfLine[1]);
+
+
+                listPersonalFilm.insert(filmRating);
+            }
+
+            listPersonalFilm.print();
+            bufferedReader.close();
+            fileReader.close();
+
+        } catch (IOException e) {
+            try {
+                bufferedReader.close();
+                fileReader.close();
+            } catch (Exception er) {
+                System.out.println("Произошла ошибка");
+            }
+            throw new RuntimeException("Такой файл не найден");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return listPersonalFilm;
+    }
+
+    public static void writeDataToFilePersonalFilm(List<PersonalFilm>  listPersonalFilm, String fileName) {
+        FileWriter fileWriter = null;
+        BufferedWriter bufferedWriter = null;
+        try {
+            fileWriter = new FileWriter(fileName);
+            bufferedWriter = new BufferedWriter(fileWriter);
+
+            PersonalFilm[] personalFilms = listPersonalFilm.getAll();
+
+            for (int i = 0; i < listPersonalFilm.getSize(); i++) {
+                bufferedWriter.write(personalFilms[i] + "\n");
+            }
+
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
-
