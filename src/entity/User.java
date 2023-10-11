@@ -6,7 +6,7 @@ public class User implements Serializable {
     protected String nickName;
     protected String login;
     protected String password;
-    protected UserRole userRole;
+    protected static UserRole userRole;
     protected List<FilmRating> listUserFilmRating;
     public List<FilmRating> getListFilmUser() {
         return listUserFilmRating;
@@ -55,7 +55,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public UserRole getUserRole() {
+    public static UserRole getUserRole() {
 
         return userRole;
     }

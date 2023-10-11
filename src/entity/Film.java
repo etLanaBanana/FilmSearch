@@ -68,7 +68,7 @@ public class Film implements Serializable {
         }
         return 0;
     }
-    public static  Film getFilmForIdFilm(Film[] films, int idFilm) {
+    public static Film getFilmForIdFilm(Film[] films, int idFilm){
         Film film = Film.builder().build();
         for (int i = 0; i < films.length && films[i] != null; i++) {
             if (films[i].getIdFilm() == idFilm) {
@@ -76,6 +76,25 @@ public class Film implements Serializable {
             }
         }
         return film;
+    }
+    public static boolean isHadIdFilmInIdFilmList(Film[] films, int idFilm) {
+        int count = 0;
+        int index = 0;
+        boolean result = true;
+        for (int i =0; i < films.length & films[i] !=null; i++) {
+            if(films[i].getIdFilm() == idFilm) {
+                result = true;
+            }
+            else {
+                count++;
+            }
+            index = i;
+        }
+        if (count == index + 1) {
+            result = false;
+
+        }
+        return result;
     }
 
     @Override

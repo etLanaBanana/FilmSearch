@@ -13,6 +13,10 @@ public class Authorization {
     }
 
     public User authenticate(String login, String password) {
+        User[] users = new User[10];
+        for (int i = 0; i < users.length; i++) {
+
+        }
         for (User user : listUser.getAll()) {
             if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
                 return user;

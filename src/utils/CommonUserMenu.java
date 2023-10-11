@@ -13,4 +13,5 @@ public class CommonUserMenu implements Menu {
                 "8. Удалить фильм по id \n" +
                 "9. Сменить данные о себе");
     }
+
 }
