@@ -8,6 +8,7 @@ public class User implements Serializable {
     protected String password;
     protected static UserRole userRole;
     protected List<FilmRating> listUserFilmRating;
+
     public List<FilmRating> getListFilmUser() {
         return listUserFilmRating;
     }

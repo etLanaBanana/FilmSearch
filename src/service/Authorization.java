@@ -93,6 +93,4 @@ public class Authorization {
         application.listUser.print();
         return new Pair<>(newUser, menu);
     }
-
-
 }

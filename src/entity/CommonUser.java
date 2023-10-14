@@ -1,6 +1,8 @@
 package entity;
 
-public class CommonUser extends User {
+import java.io.Serializable;
+
+public class CommonUser extends User{
 
 
     public CommonUser(String nickName, String login, String password, UserRole userRole) {

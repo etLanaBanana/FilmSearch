@@ -1,6 +1,8 @@
 package entity;
 
-public class PersonalFilm {
+import java.io.Serializable;
+
+public class PersonalFilm implements Serializable {
     protected String loginUser;
     protected String titleFilm;
 

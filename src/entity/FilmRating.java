@@ -16,6 +16,14 @@ public class FilmRating implements Serializable {
         this.rating = rating;
     }
 
+    public int getIdFilm() {
+        return idFilm;
+    }
+
+    public void setIdFilm(int idFilm) {
+        this.idFilm = idFilm;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -47,4 +55,26 @@ public class FilmRating implements Serializable {
                 ", Названием: " + title +
                 " равен: " + rating;
     }
+//    public static class FilmRatingBuilder {
+//        private FilmRating filmRating;
+//        public FilmRatingBuilder() {
+//            this.filmRating = new FilmRating();
+//        }
+//        public FilmRatingBuilder withIdFilm(int idFilm) {
+//            filmRating.setIdFilm(idFilm);
+//            return this;
+//        }
+//        public FilmRatingBuilder withTitle(String title) {
+//            filmRating.setTitle(title);
+//            return this;
+//        }
+//        public FilmRatingBuilder withUserLogin(String userLogin) {
+//            filmRating.setUserLogin(userLogin);
+//            return this;
+//        }
+//        public FilmRatingBuilder withRating(int rating) {
+//            filmRating.setRating(rating);
+//            return this;
+//        }
+//    }
 }
