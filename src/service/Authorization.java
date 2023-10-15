@@ -52,13 +52,13 @@ public class Authorization {
 
         menu = switch (userRole) {
             case COMMON -> new CommonUserMenu();
-            default -> new AdminUserMenu();
+            case ADMIN -> new AdminUserMenu();
         };
         return new Pair<>(authenticatedUser, menu);
     }
 
     public UserRole authorize(User user) {
-        return user.getUserRole();
+        return User.getUserRole();
     }
     public static Pair<User, Menu> tryToRegistrationUser() {
         Application application = new Application();

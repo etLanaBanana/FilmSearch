@@ -21,7 +21,7 @@ public class User implements Serializable {
         this.nickName = nickName;
         this.login = login;
         this.password = password;
-        this.userRole = userRole;
+        User.userRole = userRole;
     }
 
 

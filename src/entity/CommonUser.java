@@ -10,14 +10,14 @@ public class CommonUser extends User{
     }
 
     public CommonUser(User user) {
-        super(user.nickName, user.login, user.getPassword(), user.getUserRole() );
+        super(user.nickName, user.login, user.getPassword(), UserRole.COMMON);
     }
 
     public void updateData(String nickName, String login, String password, UserRole userRole) {
         this.nickName = nickName;
         this.login = login;
         this.password = password;
-        this.userRole = userRole;
+        User.userRole = UserRole.COMMON;
     }
 
     @Override

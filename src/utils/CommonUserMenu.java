@@ -32,7 +32,6 @@ public class CommonUserMenu implements Menu {
         int command = Integer.parseInt(input2);
         switch (command) {
             case 1 -> {
-                keyboard.nextLine();
                 System.out.println("Введите название фильма: ");
                 String findTitle = keyboard.next();
                 Film[] films = application.listFilm.getAll();
@@ -43,7 +42,6 @@ public class CommonUserMenu implements Menu {
                 }
             }
             case 2 -> {
-                keyboard.nextLine();
                 System.out.println("Введите год выпуска фильма: ");
                 String dateCreateFilm = keyboard.next();
                 Film[] films = application.listFilm.getAll();
@@ -54,7 +52,6 @@ public class CommonUserMenu implements Menu {
                 }
             }
             case 3 -> {
-                keyboard.nextLine();
                 System.out.println("Введите страну: ");
                 String country = keyboard.next();
                 Film[] films = application.listFilm.getAll();
@@ -65,7 +62,6 @@ public class CommonUserMenu implements Menu {
                 }
             }
             case 4 -> {
-                keyboard.nextLine();
                 System.out.println("Введите жанр: ");
                 String genre = keyboard.next();
                 Film[] films = application.listFilm.getAll();
@@ -76,7 +72,6 @@ public class CommonUserMenu implements Menu {
                 }
             }
             case 5 -> {
-                keyboard.nextLine();
                 System.out.println("Введите название фильма: ");
                 String title = keyboard.nextLine();
                 System.out.println("Введите оценку от 1 до 100: ");
@@ -166,7 +161,6 @@ public class CommonUserMenu implements Menu {
 
 
             case 9 -> {
-                keyboard.nextLine();
                 System.out.println("Введите ник :");
                 String nickName = keyboard.nextLine();
                 System.out.println("Введите логин: ");

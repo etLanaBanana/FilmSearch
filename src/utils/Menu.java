@@ -2,7 +2,6 @@ package utils;
 
 import bootstrap.Application;
 import entity.User;
-
 import java.util.Scanner;
 
 public interface Menu {
