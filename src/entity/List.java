@@ -1,12 +1,10 @@
 package entity;
 
-import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Iterator;
 
-public class List<T> implements Iterable<T>, Serializable {
+public class List<T> {
     private T[] data;
-    private int capacity = 20;
+    private int capacity = 200;
     private int size = 0;
 
     public List(T[] data) {
@@ -67,11 +65,6 @@ public class List<T> implements Iterable<T>, Serializable {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new ListIterator();
-    }
-
-    @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
         for (T element : data) {
@@ -81,20 +74,5 @@ public class List<T> implements Iterable<T>, Serializable {
             }
         }
         return !stringBuilder.isEmpty() ? stringBuilder.toString() : "Нет элементов в массиве";
-    }
-
-
-    private class ListIterator implements Iterator<T> {
-        private int currentIndex = 0;
-
-        @Override
-        public boolean hasNext() {
-            return currentIndex < size;
-        }
-
-        @Override
-        public T next() {
-            return data[currentIndex++];
-        }
     }
 }

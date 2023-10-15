@@ -12,7 +12,7 @@ public class AdminUser extends User {
         this.nickName = nickName;
         this.login = login;
         this.password = password;
-        User.userRole = UserRole.ADMIN;
+        this.userRole = userRole;
     }
     @Override
     public String toString() {

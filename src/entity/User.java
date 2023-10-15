@@ -6,9 +6,8 @@ public class User implements Serializable {
     protected String nickName;
     protected String login;
     protected String password;
-    protected static UserRole userRole;
+    protected UserRole userRole;
     protected List<FilmRating> listUserFilmRating;
-
     public List<FilmRating> getListFilmUser() {
         return listUserFilmRating;
     }
@@ -21,9 +20,8 @@ public class User implements Serializable {
         this.nickName = nickName;
         this.login = login;
         this.password = password;
-        User.userRole = userRole;
+        this.userRole = userRole;
     }
-
 
 
     public String getNickName() {
@@ -56,7 +54,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public static UserRole getUserRole() {
+    public UserRole getUserRole() {
 
         return userRole;
     }
@@ -65,7 +63,6 @@ public class User implements Serializable {
 
         this.userRole = userRole;
     }
-
     public static boolean hasUserListThisUser(List<User> userList, String login) {
         User[] users = userList.getAll();
 
@@ -77,6 +74,8 @@ public class User implements Serializable {
         }
         return false;
     }
+
+
     @Override
     public String toString() {
         return String.format("Человек с ником %s, логином %s, ролью %s", nickName, login, userRole);

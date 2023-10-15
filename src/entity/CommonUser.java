@@ -17,7 +17,7 @@ public class CommonUser extends User{
         this.nickName = nickName;
         this.login = login;
         this.password = password;
-        User.userRole = UserRole.COMMON;
+        this.userRole = userRole;
     }
 
     @Override
